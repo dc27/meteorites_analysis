@@ -12,8 +12,6 @@ output:
 # load in the tidyverse and maps packages.
 library(tidyverse)
 library(maps)
-
-
 ```
 
 ```{r, message=FALSE}
@@ -33,11 +31,9 @@ The top of the data, showing the column names and some of the data.
 head(meteorites)
 ```
 
-Note, meteorite data only available to 2013.
+Note: meteorite data only available to 2013.
 
-# MVP Questions
-
-**1** Find the names and years found for the ten largest meteorites
+The names and years found for the ten largest meteorites:
 ```{r}
 largest_meteorites <- meteorites %>%
   # select only necessary columns
@@ -52,7 +48,7 @@ According to the wikipedia entry for Campo del Cielo it was "found"  < 1576.
 This may be why it is recorded as NA in the year table.
 
 
-**2** Find the average mass of meteorites that were recorded falling, vs. those
+The average mass of meteorites that were recorded falling, vs. those
 which were just found.
 
 
@@ -89,7 +85,7 @@ Earth relative to the length of time that humans have existed, and also when not
 falling from the sky, it's probably quite difficult to find a small meteorite. A
 long term study of found meteorites should, therefore, favour larger masses.
 
-**3** Find the number of meteorites in each year, for every year since 2000.
+The number of meteorites in each year, for every year since 2000.
 ```{r}
 # find only recent meteorites
 recent_meteorites <- meteorites %>% 
@@ -103,7 +99,7 @@ count_meteorites <- recent_meteorites %>%
 count_meteorites
 ```
 
-# Extension
+
 
 ```{r}
 ggplot() +
@@ -154,8 +150,13 @@ ggplot() +
   geom_polygon(data = earth_map, aes(x = long, y = lat, group = group),
                fill = "grey", alpha = 1.5) +
   # plot lat/longs on top
-  geom_point(data = meteorites, aes(x = longitude, y = latitude)) +
-  coord_cartesian()
+  geom_point(data = meteorites %>% mutate(mass = mass/1000/1000),
+             aes(x = longitude, y = latitude, size = mass)) +
+  coord_cartesian() +
+  theme_classic() +
+  theme_void() +
+  theme(legend.position = "bottom") +
+  guides(size = guide_legend(nrow = 2))
 
 ```
 

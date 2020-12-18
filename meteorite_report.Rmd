@@ -9,23 +9,16 @@ output:
 ---
 
 ```{r, message = FALSE}
-# load in the tidyverse, assertive, maps and plotting packages.
+# load in the tidyverse and maps packages.
 library(tidyverse)
-library(assertthat)
-library(assertr)
-library(ggplot2)
 library(maps)
 
-# load in the cleaning script
-# source("scripts/data_cleaner_script.R")
 
 ```
 
 ```{r, message=FALSE}
-# load in the dirty data
-# dirty_meteorites <- read_csv("data/raw_data.csv")
 
-# meteorites <- clean_data(dirty_meteorites)
+# read in the clean data
 
 meteorites <- read_csv("data/clean_meteorites_data.csv")
 ```
@@ -243,7 +236,9 @@ ggplot() +
   labs(color = "Decade",
        size = "Mass (kg)",
        title = "Meteorites in the last 40 years") +
-  coord_cartesian()
+  coord_cartesian() +
+  theme_bw() +
+  theme_void() +
 
 ```
 

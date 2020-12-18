@@ -53,7 +53,6 @@ clean_data <- function(meteorite_data) {
     arrange(year)
   
   # the error messages are clearer if split for each one
-  # 
   meteorites_long %>% 
     verify(latitude > -90) %>% 
     verify(latitude < 90) %>% 

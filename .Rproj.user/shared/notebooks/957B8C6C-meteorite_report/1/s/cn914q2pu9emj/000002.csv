@@ -1,0 +1,13 @@
+"0","recent_fell_meteorites <- meteorites_last_100_years %>%"
+"0","  filter(fall = ""Fell"") %>% "
+"0","  filter(year >= 1980) %>% "
+"0","  mutate(decade = case_when("
+"0","    year >= 1980 & year < 1990 ~ ""1980s"","
+"0","    year >= 1990 & year < 2000 ~ ""1990s"","
+"0","    year >= 2000 & year < 2010 ~ ""2000s"","
+"0","    year >= 2010 & year < 2020 ~ ""2010s"""
+"0","  )) %>% "
+"0","  group_by(decade)"
+"2","Error in eval(lhs, parent, parent) : 
+  object 'meteorites_last_100_years' not found
+"

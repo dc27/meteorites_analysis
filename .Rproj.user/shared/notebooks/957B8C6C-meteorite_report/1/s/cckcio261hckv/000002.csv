@@ -1,0 +1,7 @@
+"0","largest_meteorites <- meteorites %>%"
+"0","  # select only necessary columns"
+"0","  select(name, mass, year) %>% "
+"0","  slice_max(mass, n = 10)"
+"0","  "
+"0",""
+"0","largest_meteorites"

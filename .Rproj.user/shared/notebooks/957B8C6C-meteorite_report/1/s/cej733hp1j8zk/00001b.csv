@@ -1,4 +1,0 @@
-"0","ggplot() +"
-"0","  geom_col(data = count_meteorites, aes(x = year, y = n_meteorites), colour = ""black"", fill=""grey"") +"
-"0","  labs(title = ""Plot of meteorites observed from 2000 - 2013"") +"
-"0","  theme_classic()"

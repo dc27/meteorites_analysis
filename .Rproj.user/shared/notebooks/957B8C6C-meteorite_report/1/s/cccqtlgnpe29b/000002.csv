@@ -1,4 +1,0 @@
-"0","# load in the dirty data"
-"0","dirty_meteorites <- read_csv(""raw_data.csv"")"
-"0",""
-"0","meteorites <- clean_data(dirty_meteorites)"

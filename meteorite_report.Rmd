@@ -51,7 +51,6 @@ This may be why it is recorded as NA in the year table.
 The average mass of meteorites that were recorded falling, vs. those
 which were just found.
 
-
 ```{r}
 falling_meteorites <- meteorites %>% 
   filter(fall == "Fell")
@@ -66,7 +65,7 @@ Almost 70kg
 
 How does this compare with meteorites that were just found?
 
-```{r}
+```{r, eval = TRUE, echo = FALSE}
 
 found_meteorites <- meteorites %>% 
   filter(fall == "Found")
@@ -86,7 +85,7 @@ falling from the sky, it's probably quite difficult to find a small meteorite. A
 long term study of found meteorites should, therefore, favour larger masses.
 
 The number of meteorites in each year, for every year since 2000.
-```{r}
+```{r, eval = TRUE, echo = FALSE}
 # find only recent meteorites
 recent_meteorites <- meteorites %>% 
   filter(year >= 2000)
@@ -102,10 +101,17 @@ count_meteorites
 
 
 ```{r}
-ggplot() +
-  geom_col(data = count_meteorites, aes(x = year, y = n_meteorites), colour = "black", fill="grey") +
-  labs(title = "Plot of meteorites observed from 2000 - 2013") +
-  theme_classic()
+count_meteorites %>% 
+  ggplot() +
+    geom_col(
+             aes(x = year, y = n_meteorites),
+             colour = "black", fill = "grey") +
+    scale_x_discrete(breaks = seq(2000, 2013),
+                     limits = seq(2000, 2013)) +
+    labs(x = "Year",
+         y = "n Meteorites",
+         title = "Plot of meteorites observed from 2000 - 2013") +
+    theme_classic()
 ```
 
 The trend is that over time, less meteorites are recorded per year.
@@ -122,11 +128,17 @@ count_fell_meteorites
 ```
 
 ```{r}
-ggplot() +
-  geom_col(data = count_fell_meteorites,
-             aes(x = year, y = n_fell_meteorites), colour = "black", fill="grey") +
-  labs(title = "Plot of meteorites observed falling from 2000 - 2013") +
-  theme_classic()
+count_fell_meteorites %>% 
+  ggplot() +
+    geom_col(
+             aes(x = year, y = n_fell_meteorites),
+             colour = "black", fill= "grey") +
+    scale_x_discrete(breaks = seq(2000,2013),
+                     limits = seq(2000,2013)) +
+    labs(x = "Year",
+         y = "n Fell Meteorites",
+         title = "Plot of meteorites observed from 2000 - 2013") +
+    theme_bw()
 ```
 
 While the number of meteorites per year has decreased over time, the number of

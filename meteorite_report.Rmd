@@ -111,7 +111,7 @@ count_meteorites %>%
     labs(x = "Year",
          y = "n Meteorites",
          title = "Plot of meteorites observed from 2000 - 2013") +
-    theme_classic()
+    theme_bw()
 ```
 
 The trend is that over time, less meteorites are recorded per year.
@@ -189,7 +189,10 @@ ggplot() +
   geom_point(data = large_meteorites,
              aes(x = longitude, y = latitude, color = mass)) +
   coord_cartesian() +
-  labs(color = "Mass (1000kg)", title = "Large Meteorites")
+  labs(color = "Mass (1000kg)", title = "Large Meteorites") +
+  theme_void() +
+  theme(legend.position = "bottom") +
+  guides(size = guide_legend(nrow = 2))
 
 ```
 
@@ -219,9 +222,12 @@ ggplot() +
   geom_polygon(data = earth_map, aes(x = long, y = lat, group = group),
                fill = "grey", alpha = 1.5) +
   geom_point(data = meteorites_last_100_years,
-             aes(x = longitude, y = latitude)) +
+             aes(x = longitude, y = latitude, size = mass/1000)) +
   coord_cartesian() +
-  labs(title = "Meteorites observed falling since 1920")
+  labs(title = "Meteorites observed falling since 1920", size = "Mass (1000kg)") +
+  theme_void() +
+  theme(legend.position = "bottom") +
+  guides(size = guide_legend(nrow = 1))
 ```
 
 Plot the meteorites observed falling in the past 40 years. Distinguish decade by
@@ -238,20 +244,25 @@ recent_meteorites <- meteorites_last_100_years %>%
   group_by(decade)
 
 ggplot() +
-  geom_polygon(data = earth_map, aes(x = long, y = lat, group = group),
+  geom_polygon(data = earth_map,
+               aes(x = long, y = lat, group = group),
                fill = "grey", alpha = 1.5) +
   geom_point(data = recent_meteorites,
-             aes(x = longitude, y = latitude, colour = decade, size = mass/1000)) +
+             aes(x = longitude, y = latitude,
+                 colour = decade, size = mass/1000)) +
   scale_color_manual(values = c("1980s" = "yellow",
                                 "1990s" = "orange",
                                 "2000s" = "red",
                                 "2010s" = "black")) +
   labs(color = "Decade",
-       size = "Mass (kg)",
+       size = "Mass (1000kg)",
        title = "Meteorites in the last 40 years") +
   coord_cartesian() +
-  theme_bw() +
   theme_void() +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5),
+        legend.box.background = element_rect()) +
+  guides(size = guide_legend(nrow = 2, ncol = 2),
+         colour = guide_legend(nrow = 2, ncol = 2))
 
 ```
 

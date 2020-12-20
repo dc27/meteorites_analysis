@@ -37,11 +37,25 @@ The names and years found for the ten largest meteorites:
 ```{r}
 largest_meteorites <- meteorites %>%
   # select only necessary columns
-  select(name, mass, year) %>% 
-  slice_max(mass, n = 10)
-  
+  select(Name = name, `Mass (kg)` = mass, Year = year) %>% 
+  slice_max(`Mass (kg)`, n = 10)
 
-largest_meteorites
+library(huxtable)
+ht <- largest_meteorites %>% 
+  as_huxtable() 
+
+bold(ht)[1,]           <- TRUE
+bottom_border(ht)[1,]  <- 0.4
+align(ht)[,2]          <- 'right'
+right_padding(ht)      <- 10
+left_padding(ht)       <- 10
+width(ht)              <- 0.35
+number_format(ht)      <- 0
+
+ht
+
+library(ggplot2)
+
 ```
 
 According to the wikipedia entry for Campo del Cielo it was "found"  < 1576.
@@ -100,7 +114,7 @@ count_meteorites
 
 
 
-```{r}
+```{r, warning = FALSE}
 count_meteorites %>% 
   ggplot() +
     geom_col(
@@ -127,7 +141,7 @@ count_fell_meteorites <- recent_meteorites %>%
 count_fell_meteorites
 ```
 
-```{r}
+```{r, warning = FALSE}
 count_fell_meteorites %>% 
   ggplot() +
     geom_col(
@@ -162,12 +176,13 @@ ggplot() +
   geom_polygon(data = earth_map, aes(x = long, y = lat, group = group),
                fill = "grey", alpha = 1.5) +
   # plot lat/longs on top
-  geom_point(data = meteorites %>% mutate(mass = mass/1000/1000),
+  geom_point(data = meteorites %>% mutate(mass = mass/1000),
              aes(x = longitude, y = latitude, size = mass)) +
   coord_cartesian() +
   theme_classic() +
   theme_void() +
-  theme(legend.position = "bottom") +
+  labs(size = "Mass (1000kg)") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5)) +
   guides(size = guide_legend(nrow = 2))
 
 ```
@@ -191,7 +206,7 @@ ggplot() +
   coord_cartesian() +
   labs(color = "Mass (1000kg)", title = "Large Meteorites") +
   theme_void() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5)) +
   guides(size = guide_legend(nrow = 2))
 
 ```
@@ -226,7 +241,7 @@ ggplot() +
   coord_cartesian() +
   labs(title = "Meteorites observed falling since 1920", size = "Mass (1000kg)") +
   theme_void() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom",  plot.title = element_text(hjust = 0.5)) +
   guides(size = guide_legend(nrow = 1))
 ```
 
